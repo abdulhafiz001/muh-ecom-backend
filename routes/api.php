@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\PaymentController;
 use App\Http\Controllers\Api\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Api\Admin\CategoryController as AdminCategoryController;
 
@@ -50,6 +51,12 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{id}', [OrderController::class, 'show']);
     Route::post('/orders', [OrderController::class, 'store']);
+    Route::delete('/orders/{id}', [OrderController::class, 'destroy']);
+    
+    // Payments
+    Route::post('/payment/initialize', [PaymentController::class, 'initializePayment']);
+    Route::post('/payment/verify', [PaymentController::class, 'verifyPayment']);
+    Route::get('/payment/status', [PaymentController::class, 'getPaymentStatus']);
 });
 
 // Temporary routes for testing (without authentication)
@@ -61,6 +68,12 @@ Route::delete('/cart', [CartController::class, 'clear']);
 Route::post('/orders', [OrderController::class, 'store']);
 Route::get('/orders', [OrderController::class, 'index']);
 Route::get('/orders/{id}', [OrderController::class, 'show']);
+
+// Payment routes (temporary, without authentication)
+Route::post('/payment/initialize', [PaymentController::class, 'initializePayment']);
+Route::post('/payment/verify', [PaymentController::class, 'verifyPayment']);
+Route::get('/payment/status', [PaymentController::class, 'getPaymentStatus']);
+Route::post('/payment/webhook', [PaymentController::class, 'handleWebhook']);
 
 // Admin routes (temporary, without authentication)
 Route::prefix('admin')->group(function () {

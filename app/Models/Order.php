@@ -16,8 +16,12 @@ class Order extends Model
         'total',
         'shipping_address',
         'billing_address',
+        'shipping_method',
         'payment_method',
         'payment_status',
+        'payment_reference',
+        'payment_authorization_code',
+        'payment_customer_code',
         'notes'
     ];
 
@@ -25,7 +29,9 @@ class Order extends Model
         'subtotal' => 'decimal:2',
         'tax' => 'decimal:2',
         'shipping_cost' => 'decimal:2',
-        'total' => 'decimal:2'
+        'total' => 'decimal:2',
+        'shipping_address' => 'array',
+        'billing_address' => 'array'
     ];
 
     public function user()
